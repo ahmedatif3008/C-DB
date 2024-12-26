@@ -15,7 +15,7 @@ struct Table create_table(const char *name, int columnCount, char columns[][50],
     for (int i = 0; i < columnCount; i++){
 
         strcpy(t.columns[i], columns[i]);
-        strcpy(t.dataType, dataType);
+        memcpy(t.dataType, dataType, sizeof(int) * 10);
     }
 
     t.rows = NULL;
@@ -74,7 +74,31 @@ void remove_table_from_database(struct Database *db, struct Table table){
 
 // Main function for testing
 int main() {
+    struct Database db;
+    db.tables = NULL;
+    db.tableCount = 0;
 
-    
+    // Create the first table
+    char columns1[][50] = {"id", "name", "age"};
+    int dataTypes1[] = {0, 1, 0}; // 0 = int, 1 = string
+    struct Table table1 = create_table("Users", 3, columns1, dataTypes1);
+
+    // Add the table to the database
+    add_table_to_database(&db, table1);
+
+    // Create the second table with a foreign key
+    char columns2[][50] = {"order_id", "user_id", "amount"};
+    int dataTypes2[] = {0, 0, 0};
+    struct Table table2 = create_table("Orders", 3, columns2, dataTypes2);
+
+    add_table_to_database(&db, table2);
+
+    // Display database information
+    display_database(db);
+
+    // Free allocated memory
+    free(db.tables);
+
+
 
     }
