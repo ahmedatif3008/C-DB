@@ -57,6 +57,15 @@ void add_table_to_database(struct Database *db, struct Table table) {
 // Function to display the tables in the database
 void display_database(struct Database db) {
     // TODO
+    printf("Database contains %d tables", db.tableCount);
+
+    for (int i = 0; i < db.tableCount; i++) {
+        printf("Table %d: %s (%d columns)\n", i + 1, db.tables[i].TableName, db.tables[i].columnCount);
+        for (int j = 0; j < db.tables[i].columnCount; j++) {
+            printf("  - Column %d: %s\n", j + 1, db.tables[i].columns[j]);
+        }
+    }
+
 }
 
 void remove_table_from_database(struct Database *db, struct Table table){
@@ -65,4 +74,7 @@ void remove_table_from_database(struct Database *db, struct Table table){
 
 // Main function for testing
 int main() {
+
+    
+
     }
