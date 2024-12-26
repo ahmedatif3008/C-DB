@@ -1,3 +1,6 @@
+#ifndef TABLE_H
+#define TABLE_H
+
 struct Table  {
     char TableName[50];
     int columnCount;
@@ -5,3 +8,5 @@ struct Table  {
     int dataType[10];
     void *rows;
 };
+
+#endif
