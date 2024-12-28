@@ -62,8 +62,17 @@ void display_database(struct Database db) {
     for (int i = 0; i < db.tableCount; i++) {
         printf("Table %d: %s (%d columns)\n", i + 1, db.tables[i].TableName, db.tables[i].columnCount);
         for (int j = 0; j < db.tables[i].columnCount; j++) {
-            printf("  - Column %d: %s\n", j + 1, db.tables[i].columns[j]);
+            printf("  - Column %d: %s  | ", j + 1, db.tables[i].columns[j]);
         }
+        
+        int *row_data = (int *)db.tables[i].rows;
+        
+        for (int k = 0; k < db.tables[i].columnCount; k++) {
+            printf("%d ", row_data[k]);
+        }
+        
+        printf("\n");
+
     }
 
 }
@@ -82,6 +91,10 @@ int main() {
     char columns1[][50] = {"id", "name", "age"};
     int dataTypes1[] = {0, 1, 0}; // 0 = int, 1 = string
     struct Table table1 = create_table("Users", 3, columns1, dataTypes1);
+    
+    
+    int p[] = {1,2,3};
+    table1.rows = &p;
 
     // Add the table to the database
     add_table_to_database(&db, table1);
